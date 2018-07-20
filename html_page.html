@@ -1,0 +1,2269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<script language='JavaScript' type='text/javascript' src='./build/common.js'></script>
+
+
+
+<script>
+function changeSemester(val){
+
+        var curSes =document.getElementById('session').value;
+        var curSem =document.getElementById('semester').value;
+        if(val=='N'){
+            if(curSem=='SPRING'){
+                document.getElementById('semester').value='AUTUMN';
+                var year=curSes.split('-');
+                var nextSem=year[1]+'-'+(parseInt(year[1])+1);
+                document.getElementById('session').value=nextSem;
+            }else{
+                document.getElementById('semester').value='SPRING';
+            }
+        }else if(val=='P'){
+            if(curSem=='AUTUMN'){
+                document.getElementById('semester').value='SPRING';
+                var year=curSes.split('-');
+                var prevSem=(parseInt(year[0])-1)+'-'+year[0];
+                document.getElementById('session').value=prevSem;
+            }else{
+                document.getElementById('semester').value='AUTUMN';
+            }
+        }document.frm.submit();
+    }
+    function getDtl(subno,obj)
+    {
+        var xmlHttp=null;
+        try
+        {  // Firefox, Opera 8.0+, Safari
+           xmlHttp=new XMLHttpRequest();
+        }
+        catch (e)
+        {  // Internet Explorer
+           try
+           {
+                xmlHttp= null
+              xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+           }
+           catch (e)
+           {
+                try
+                {
+                    xmlHttp = null;
+                    xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                catch (e)
+                {
+                    alert("Your browser does not support AJAX!");
+                    return false;
+                }
+            }
+         }
+
+
+
+         xmlHttp.onreadystatechange=function()
+         {
+
+            if(xmlHttp.readyState==4)
+            {
+              document.getElementById('get_detail').style.display='block';
+              document.getElementById('get_detail').innerHTML=xmlHttp.responseText;
+               getPos(obj,'show');
+              parent.setFrameWH();
+
+
+
+
+
+            }
+         }
+         xmlHttp.open("GET","get_dtl.jsp?session="+document.getElementById('session').value+"&semester="+document.getElementById('semester').value+"&subno="+subno,true);
+         xmlHttp.send(null);
+
+    }
+    function getPos(obj,action){
+
+            clicklocation=obj;
+            var div_ref = document.getElementById('get_detail');
+            var x=0,y=0;
+            var obj1 = obj;
+            while(obj.offsetParent){
+                x += obj.offsetLeft;
+                y += obj.offsetTop;
+                obj = obj.offsetParent;
+            }
+            var abs_x = x+'px', abs_y = ((y+obj1.offsetHeight)-50)+'px';
+
+            //alert(abs_x+'   ::   '+abs_y);
+            div_ref.style.right = abs_x;
+            div_ref.style.top = abs_y;
+
+            //div_ref.style.display='block';
+            switch(action){
+                case 'show':
+                div_ref.style.display = 'block';
+                break;
+                case 'hide':
+                div_ref.style.display = 'none';
+                break;
+                default:
+            }
+
+        }
+</script>
+   <html>
+    <head>
+
+           <link rel='StyleSheet' href='./css/style1.css' />
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <title>JSP Page</title>
+    </head>
+<body>
+
+        <form name="frm" action="central_breadth_tt.jsp" method=post>
+         
+<table align="center" border="0">
+                                        <tr>
+                                            <td align='left' style="color:maroon">
+                                                <label onclick="changeSemester('P')" style="cursor:pointer"><b><<</b></label>
+                                                <input type="text" name="session" id="session" value="2018-2019" size="10px" onkeyup="checkSession(this)" class="ReadOnlyBGColor" readonly/>
+                                                <input type="text" name="semester" id="semester" value="AUTUMN" size="8px" onkeyup="checkSession(this)" class="ReadOnlyBGColor" readonly/>
+                                                <label onclick="changeSemester('N')" style="cursor:pointer"><b>>></b></label>
+                                            </td>
+</tr></table>
+
+
+
+       
+     <center><font color="#000099"><b>Breadth Subjects<br>
+    </b></font></center>
+<center><font color="#000099"><b>Pink colour indicates, no seats are available (only for breadth subject). <br>
+    </b></font></center>
+
+  <table border="0" style='border-color:#557CD7' id=display_tab  cellpadding="4" align="center">       <tr>
+  <th> Subject No</th>
+  <th> Subject Name</th>
+  <th>L-T-P</th>
+  <th>Pre-requisite 1</th>
+  <th>Pre-requisite 2</th>
+  <th>Pre-requisite 3</th>
+  <th> Offered By</th>
+  <th>Slot</th>
+  <th>Room</th>
+ 
+     </tr>
+     <tr><td colspan="8" align="center">Management</td></tr>
+     <tr bgcolor="white">
+    
+    <td>EP60003<input type=hidden name=subno id=subno value="EP60003"</td>
+    <td>PRODUCT DEVELOPMENT</td>
+    <td>2-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>RJ<input type=hidden name=dept id=dept value="RJ"</td>
+    <td>
+     {G3}
+
+    </td>
+    <td>
+   NC343</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>EP60005<input type=hidden name=subno id=subno value="EP60005"</td>
+    <td>FINANCIAL AND LEGAL ASPECTS OF  BUSINESS</td>
+    <td>2-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>RJ<input type=hidden name=dept id=dept value="RJ"</td>
+    <td>
+     {F4}
+
+    </td>
+    <td>
+   NR124</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>EP60007<input type=hidden name=subno id=subno value="EP60007"</td>
+    <td>TECHNO-ENTREPRENEURIAL LEADERSHIP</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>RJ<input type=hidden name=dept id=dept value="RJ"</td>
+    <td>
+     {G3}
+
+    </td>
+    <td>
+   NC344</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>EP60011<input type=hidden name=subno id=subno value="EP60011"</td>
+    <td>DESIGN-DRIVEN INNOVATION</td>
+    <td>2-0-2</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>RJ<input type=hidden name=dept id=dept value="RJ"</td>
+    <td>
+     {F4}
+
+    </td>
+    <td>
+   NR324</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>EP60020<input type=hidden name=subno id=subno value="EP60020"</td>
+    <td>FOUNDATIONS OF ENTREPRENEURSHIP</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>RJ<input type=hidden name=dept id=dept value="RJ"</td>
+    <td>
+     {S3}
+
+    </td>
+    <td>
+   NR321</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>EP60021<input type=hidden name=subno id=subno value="EP60021"</td>
+    <td>ENGINEERING B-PLAN DEVELOPMENT - 1</td>
+    <td>2-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>RJ<input type=hidden name=dept id=dept value="RJ"</td>
+    <td>
+     {F3}
+
+    </td>
+    <td>
+   NR422</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>EP60022<input type=hidden name=subno id=subno value="EP60022"</td>
+    <td>TECHNOLOGY ENTREPRENEURSHIP</td>
+    <td>2-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>RJ<input type=hidden name=dept id=dept value="RJ"</td>
+    <td>
+     {G3}
+
+    </td>
+    <td>
+   NC444</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>EP60025<input type=hidden name=subno id=subno value="EP60025"</td>
+    <td>SPECIAL TOPICS IN ENTREPRENEURSHIP</td>
+    <td>2-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>RJ<input type=hidden name=dept id=dept value="RJ"</td>
+    <td>
+     {F3}
+
+    </td>
+    <td>
+   NC234</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>EP60029<input type=hidden name=subno id=subno value="EP60029"</td>
+    <td>SMALL BUSINESS DEVELOPMENT</td>
+    <td>2-0-1</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>RJ<input type=hidden name=dept id=dept value="RJ"</td>
+    <td>
+     {F3}
+
+    </td>
+    <td>
+   NC141</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>EP60044<input type=hidden name=subno id=subno value="EP60044"</td>
+    <td>FRUGAL ENGINEERING</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>RJ<input type=hidden name=dept id=dept value="RJ"</td>
+    <td>
+     {F3}
+
+    </td>
+    <td>
+   </td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>IP60017<input type=hidden name=subno id=subno value="IP60017"</td>
+    <td>INTRODUCTION TO INTELLECTUAL PROPERTY RIGHTS</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>IP<input type=hidden name=dept id=dept value="IP"</td>
+    <td>
+     --
+
+    </td>
+    <td>
+   </td>
+   </tr>
+    <input type=hidden name="check" value="I">
+     <tr bgcolor="white">
+    
+    <td>IP60119<input type=hidden name=subno id=subno value="IP60119"</td>
+    <td>LAW OF PATENT - I</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>IP<input type=hidden name=dept id=dept value="IP"</td>
+    <td>
+     --
+
+    </td>
+    <td>
+   </td>
+   </tr>
+    <input type=hidden name="check" value="I">
+     <tr bgcolor="white">
+    
+    <td>IP61019<input type=hidden name=subno id=subno value="IP61019"</td>
+    <td>IPR MANAGEMENT</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>IP<input type=hidden name=dept id=dept value="IP"</td>
+    <td>
+     --
+
+    </td>
+    <td>
+   </td>
+   </tr>
+    <input type=hidden name="check" value="I">
+     <tr bgcolor="white">
+    
+    <td>IP61023<input type=hidden name=subno id=subno value="IP61023"</td>
+    <td>ARTIFICIAL INTELLIGENCE AND LAW</td>
+    <td>2-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>IP<input type=hidden name=dept id=dept value="IP"</td>
+    <td>
+     --
+
+    </td>
+    <td>
+   </td>
+   </tr>
+    <input type=hidden name="check" value="I"><tr><td colspan="8" align="center">HSS</td></tr>
+     <tr bgcolor="white">
+    
+    <td>ET60003<input type=hidden name=subno id=subno value="ET60003"</td>
+    <td>INSTRUCTIONAL SYSTEM DESIGN</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>ET<input type=hidden name=dept id=dept value="ET"</td>
+    <td>
+     {S3,G3}
+
+    </td>
+    <td>
+   Studio-1</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>HS20002<input type=hidden name=subno id=subno value="HS20002"</td>
+    <td>GENERAL PSYCHOLOGY</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>HS<input type=hidden name=dept id=dept value="HS"</td>
+    <td>
+     {B3,S3}
+
+    </td>
+    <td>
+   NC334</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>HS20004<input type=hidden name=subno id=subno value="HS20004"</td>
+    <td>POSITIVE PSYCHOLOGY</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>HS<input type=hidden name=dept id=dept value="HS"</td>
+    <td>
+     {S3,B3}
+
+    </td>
+    <td>
+   NC231</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>HS20016<input type=hidden name=subno id=subno value="HS20016"</td>
+    <td>ENVIRONMENTAL HUMANITIES</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>HS<input type=hidden name=dept id=dept value="HS"</td>
+    <td>
+     {B3}
+
+    </td>
+    <td>
+   NC333</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>HS20018<input type=hidden name=subno id=subno value="HS20018"</td>
+    <td>SANSKRIT AND HERITAGE</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>HS<input type=hidden name=dept id=dept value="HS"</td>
+    <td>
+     {B3}
+
+    </td>
+    <td>
+   NC234</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>HS30036<input type=hidden name=subno id=subno value="HS30036"</td>
+    <td>INTERCULTURAL COMMUNICATION</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>HS<input type=hidden name=dept id=dept value="HS"</td>
+    <td>
+     {V4}
+
+    </td>
+    <td>
+   LANGUAGE LAB - III (JCB LAB COMPLEX)</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>HS30037<input type=hidden name=subno id=subno value="HS30037"</td>
+    <td>PETROLEUM ECONOMICS AND MANAGEMENT</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>HS<input type=hidden name=dept id=dept value="HS"</td>
+    <td>
+     {B3}
+
+    </td>
+    <td>
+   NC431</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>HS30050<input type=hidden name=subno id=subno value="HS30050"</td>
+    <td>SOCIO-TECHNICAL INTERVENTIONS FOR AGEING SOCIETIES</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>HS<input type=hidden name=dept id=dept value="HS"</td>
+    <td>
+     {B3}
+
+    </td>
+    <td>
+   NR323</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>HS30068<input type=hidden name=subno id=subno value="HS30068"</td>
+    <td>SYMBOLIC LOGIC</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>HS<input type=hidden name=dept id=dept value="HS"</td>
+    <td>
+     {B3}
+
+    </td>
+    <td>
+   NC132</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>HS30071<input type=hidden name=subno id=subno value="HS30071"</td>
+    <td>APPLIED ORGANISATIONAL PSYCHOLOGY</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>HS<input type=hidden name=dept id=dept value="HS"</td>
+    <td>
+     {G3}
+
+    </td>
+    <td>
+   NC231</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>HS30074<input type=hidden name=subno id=subno value="HS30074"</td>
+    <td>SCIENCE AND HUMANISM</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>HS<input type=hidden name=dept id=dept value="HS"</td>
+    <td>
+     {G3}
+
+    </td>
+    <td>
+   NC234</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>HS30075<input type=hidden name=subno id=subno value="HS30075"</td>
+    <td>MODERNISATION AND CREATIVE COMMUNICATION</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>HS<input type=hidden name=dept id=dept value="HS"</td>
+    <td>
+     {G3}
+
+    </td>
+    <td>
+   NC333</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>HS30103<input type=hidden name=subno id=subno value="HS30103"</td>
+    <td>ECONOMICS OF HEALTH</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>HS<input type=hidden name=dept id=dept value="HS"</td>
+    <td>
+     {B3}
+
+    </td>
+    <td>
+   NC332</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>HS60005<input type=hidden name=subno id=subno value="HS60005"</td>
+    <td>INTRODUCTION TO INDIAN PSYCHOLOGY</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>HS<input type=hidden name=dept id=dept value="HS"</td>
+    <td>
+     {G3}
+
+    </td>
+    <td>
+   NC334</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>HS60042<input type=hidden name=subno id=subno value="HS60042"</td>
+    <td>INTRODUCTION TO GROSS NATIONAL HAPPINESS (GNH)</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>HS<input type=hidden name=dept id=dept value="HS"</td>
+    <td>
+     {G3}
+
+    </td>
+    <td>
+   NC431</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>HS60044<input type=hidden name=subno id=subno value="HS60044"</td>
+    <td>HISTORY OF SCIENCE AND TECHNOLOGY IN ANCIENT INDIA</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>HS<input type=hidden name=dept id=dept value="HS"</td>
+    <td>
+     {B3}
+
+    </td>
+    <td>
+   NR124</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>HS60063<input type=hidden name=subno id=subno value="HS60063"</td>
+    <td>BUSINESS ENVIORNMENT AND POLICY</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>HS<input type=hidden name=dept id=dept value="HS"</td>
+    <td>
+     {B3}
+
+    </td>
+    <td>
+   NC331</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>HS62002<input type=hidden name=subno id=subno value="HS62002"</td>
+    <td>SCIENCE OF HAPPINESS AND WELL-BEING</td>
+    <td>2-0-2</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>HS<input type=hidden name=dept id=dept value="HS"</td>
+    <td>
+     {B3,S3}
+
+    </td>
+    <td>
+   NR424</td>
+   </tr>
+    <input type=hidden name="check" value="U"><tr><td colspan="8" align="center">Breadth</td></tr>
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>AE21001<input type=hidden name=subno id=subno value="AE21001"</td>
+    <td>INTRODUCTION TO AERODYNAMICS</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>AE<input type=hidden name=dept id=dept value="AE"</td>
+    <td>
+     {E4}
+
+    </td>
+    <td>
+   NC231</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>AE21003<input type=hidden name=subno id=subno value="AE21003"</td>
+    <td>DYNAMICS FOR AEROSPACE ENGINEERS</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>AE<input type=hidden name=dept id=dept value="AE"</td>
+    <td>
+     {D4}
+
+    </td>
+    <td>
+   NC231</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>AE31001<input type=hidden name=subno id=subno value="AE31001"</td>
+    <td>THERMODYNAMICS & AEROSPACE PROP.SYSTEM</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>AE<input type=hidden name=dept id=dept value="AE"</td>
+    <td>
+     {E4}
+
+    </td>
+    <td>
+   NC334</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>AE31007<input type=hidden name=subno id=subno value="AE31007"</td>
+    <td>MECHANICS OF FLIGHT</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>AE<input type=hidden name=dept id=dept value="AE"</td>
+    <td>
+     {U4}
+
+    </td>
+    <td>
+   NC334</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>AE31009<input type=hidden name=subno id=subno value="AE31009"</td>
+    <td>AEROSPACE STRUCTURAL ANALYSIS</td>
+    <td>3-1-0</td>
+    <td>AE21004</td>
+    <td>       </td>
+    <td>       </td>
+    <td>AE<input type=hidden name=dept id=dept value="AE"</td>
+    <td>
+     {C4}
+
+    </td>
+    <td>
+   NC334</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>AE40019<input type=hidden name=subno id=subno value="AE40019"</td>
+    <td>AUTOMATIC CONTROL OF AIRCRAFT</td>
+    <td>3-0-0</td>
+    <td>AE31007</td>
+    <td>       </td>
+    <td>       </td>
+    <td>AE<input type=hidden name=dept id=dept value="AE"</td>
+    <td>
+     {C3}
+
+    </td>
+    <td>
+   1st Floor Seminar Room</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>AE40031<input type=hidden name=subno id=subno value="AE40031"</td>
+    <td>COMPUTATIONAL FLUID DYNAMICS</td>
+    <td>3-0-0</td>
+    <td>AE21002</td>
+    <td>       </td>
+    <td>       </td>
+    <td>AE<input type=hidden name=dept id=dept value="AE"</td>
+    <td>
+     {F3}
+
+    </td>
+    <td>
+   2nd Year Class Room</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>AE40033<input type=hidden name=subno id=subno value="AE40033"</td>
+    <td>FINITE ELEMENT METHOD</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>AE<input type=hidden name=dept id=dept value="AE"</td>
+    <td>
+     {C3}
+
+    </td>
+    <td>
+   2nd Year Class Room</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>AE61001<input type=hidden name=subno id=subno value="AE61001"</td>
+    <td>COMPUTATIONAL FLUID DYNAMICS</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>AE<input type=hidden name=dept id=dept value="AE"</td>
+    <td>
+     {F4}
+
+    </td>
+    <td>
+   2nd Year Class Room</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>AE61003<input type=hidden name=subno id=subno value="AE61003"</td>
+    <td>FINITE ELEMENT METHODS</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>AE<input type=hidden name=dept id=dept value="AE"</td>
+    <td>
+     {C4}
+
+    </td>
+    <td>
+   2nd Year Class Room</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>BT20103<input type=hidden name=subno id=subno value="BT20103"</td>
+    <td>MICROBIOLOGY</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>BT<input type=hidden name=dept id=dept value="BT"</td>
+    <td>
+     {B3}
+
+    </td>
+    <td>
+   </td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>BT21101<input type=hidden name=subno id=subno value="BT21101"</td>
+    <td>BIOCHEMISTRY</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>BT<input type=hidden name=dept id=dept value="BT"</td>
+    <td>
+     {D4}
+
+    </td>
+    <td>
+   </td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CH61011<input type=hidden name=subno id=subno value="CH61011"</td>
+    <td>ADVANCED FLUID DYNAMICS</td>
+    <td>3-1-0</td>
+    <td>CH20001</td>
+    <td>CH21101</td>
+    <td>       </td>
+    <td>CH<input type=hidden name=dept id=dept value="CH"</td>
+    <td>
+     {E4}
+
+    </td>
+    <td>
+   NC342</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CH61015<input type=hidden name=subno id=subno value="CH61015"</td>
+    <td>ADVANCED MATHEMATICAL TECHNIQUES IN CHEMICAL ENGINEERING</td>
+    <td>3-1-0</td>
+    <td>MA20101</td>
+    <td>MA20102</td>
+    <td>       </td>
+    <td>CH<input type=hidden name=dept id=dept value="CH"</td>
+    <td>
+     {F4}
+
+    </td>
+    <td>
+   NC442</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CH61026<input type=hidden name=subno id=subno value="CH61026"</td>
+    <td>FUNDAMENTALS OF PARTICLE TECHNOLOGY</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CH<input type=hidden name=dept id=dept value="CH"</td>
+    <td>
+     {S3,B3}
+
+    </td>
+    <td>
+   NC342</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>CH62001<input type=hidden name=subno id=subno value="CH62001"</td>
+    <td>OPTIMIZATION TECHNIQUES IN PROCESS DESIGN</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CH<input type=hidden name=dept id=dept value="CH"</td>
+    <td>
+     {C4}
+
+    </td>
+    <td>
+   NC341</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>CH62007<input type=hidden name=subno id=subno value="CH62007"</td>
+    <td>INDUSTRIAL  POLLUTION  CONTROL</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CH<input type=hidden name=dept id=dept value="CH"</td>
+    <td>
+     {D3}
+
+    </td>
+    <td>
+   NC342</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>CH62009<input type=hidden name=subno id=subno value="CH62009"</td>
+    <td>PETROLEUM REFINERY ENGINEERING</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CH<input type=hidden name=dept id=dept value="CH"</td>
+    <td>
+     {A3}
+
+    </td>
+    <td>
+   NR124</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>CH62021<input type=hidden name=subno id=subno value="CH62021"</td>
+    <td>MULTIPHASE FLOW</td>
+    <td>3-1-0</td>
+    <td>CH20001</td>
+    <td>       </td>
+    <td>       </td>
+    <td>CH<input type=hidden name=dept id=dept value="CH"</td>
+    <td>
+     {S3,B3}
+
+    </td>
+    <td>
+   NC344</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>CH62039<input type=hidden name=subno id=subno value="CH62039"</td>
+    <td>MICROSCALE TRANSPORT PROCESSES</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CH<input type=hidden name=dept id=dept value="CH"</td>
+    <td>
+     {C3}
+
+    </td>
+    <td>
+   NR123</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>CH62045<input type=hidden name=subno id=subno value="CH62045"</td>
+    <td>CHEMICAL ENGINEERING PRINCIPLES IN POLYMER PROCESSING</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CH<input type=hidden name=dept id=dept value="CH"</td>
+    <td>
+     {S3,B3}
+
+    </td>
+    <td>
+   NC232</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CH62047<input type=hidden name=subno id=subno value="CH62047"</td>
+    <td>CFD APPLICATIONS IN CHEMICAL PROCESSING</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CH<input type=hidden name=dept id=dept value="CH"</td>
+    <td>
+     {D4}
+
+    </td>
+    <td>
+   NC431</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CL60005<input type=hidden name=subno id=subno value="CL60005"</td>
+    <td>PLANETARY & MARINE BOUNDARY LAYER</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CL<input type=hidden name=dept id=dept value="CL"</td>
+    <td>
+     {G3}
+
+    </td>
+    <td>
+   Class Room-2</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CL60017<input type=hidden name=subno id=subno value="CL60017"</td>
+    <td>TROPICAL METEOROLOGY</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CL<input type=hidden name=dept id=dept value="CL"</td>
+    <td>
+     {A3}
+
+    </td>
+    <td>
+   Class Room-2</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CL60019<input type=hidden name=subno id=subno value="CL60019"</td>
+    <td>CARBON CYCLE AND GLOBAL CLIMATE CHANGE</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CL<input type=hidden name=dept id=dept value="CL"</td>
+    <td>
+     {G3}
+
+    </td>
+    <td>
+   Class Room-1</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CL60023<input type=hidden name=subno id=subno value="CL60023"</td>
+    <td>ATMOSPHERIC OBSERVATIONS</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CL<input type=hidden name=dept id=dept value="CL"</td>
+    <td>
+     {A3}
+
+    </td>
+    <td>
+   Class Room-1</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CL61007<input type=hidden name=subno id=subno value="CL61007"</td>
+    <td>TRANSPORT PHENOMENA IN EARTH SYSTEMS</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CL<input type=hidden name=dept id=dept value="CL"</td>
+    <td>
+     {F4}
+
+    </td>
+    <td>
+   Class Room-1</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CL61009<input type=hidden name=subno id=subno value="CL61009"</td>
+    <td>WEATHER ANALYSIS & PREDICTION</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CL<input type=hidden name=dept id=dept value="CL"</td>
+    <td>
+     {E4}
+
+    </td>
+    <td>
+   Class Room-1</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CL61015<input type=hidden name=subno id=subno value="CL61015"</td>
+    <td>MODELING OF EXTREME EVENTS</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CL<input type=hidden name=dept id=dept value="CL"</td>
+    <td>
+     {F4}
+
+    </td>
+    <td>
+   Class Room-2</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CR61001<input type=hidden name=subno id=subno value="CR61001"</td>
+    <td>INTRODUCTION TO CRYOGENICS AND SUPERCONDUCTIVITY</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CR<input type=hidden name=dept id=dept value="CR"</td>
+    <td>
+     {E4}
+
+    </td>
+    <td>
+   </td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CR61021<input type=hidden name=subno id=subno value="CR61021"</td>
+    <td>MATTER AT LOW TEMPERATURES</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CR<input type=hidden name=dept id=dept value="CR"</td>
+    <td>
+     {B3}
+
+    </td>
+    <td>
+   </td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CY50103<input type=hidden name=subno id=subno value="CY50103"</td>
+    <td>POLYMER CHEMISTRY</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CY<input type=hidden name=dept id=dept value="CY"</td>
+    <td>
+     {U3}
+
+    </td>
+    <td>
+   C306</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CY60004<input type=hidden name=subno id=subno value="CY60004"</td>
+    <td>BIOPHYSICAL CHEMISTRY</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CY<input type=hidden name=dept id=dept value="CY"</td>
+    <td>
+     {A3}
+
+    </td>
+    <td>
+   C306</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CY60019<input type=hidden name=subno id=subno value="CY60019"</td>
+    <td>ELECTROANALYSIS & SENSOR</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CY<input type=hidden name=dept id=dept value="CY"</td>
+    <td>
+     {B3}
+
+    </td>
+    <td>
+   C205</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CY60101<input type=hidden name=subno id=subno value="CY60101"</td>
+    <td>COMPUTATIONAL CHEMISTRY</td>
+    <td>3-0-0</td>
+    <td>CY31010</td>
+    <td>CY41003</td>
+    <td>       </td>
+    <td>CY<input type=hidden name=dept id=dept value="CY"</td>
+    <td>
+     {S3}
+
+    </td>
+    <td>
+   C306</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CY60103<input type=hidden name=subno id=subno value="CY60103"</td>
+    <td>STATISTICAL MECHANICS FOR CHEMISTS</td>
+    <td>3-0-0</td>
+    <td>CY41002</td>
+    <td>       </td>
+    <td>       </td>
+    <td>CY<input type=hidden name=dept id=dept value="CY"</td>
+    <td>
+     {V3}
+
+    </td>
+    <td>
+   C306</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CY60109<input type=hidden name=subno id=subno value="CY60109"</td>
+    <td>SPECIAL TOPICS IN MAIN GROUP CHEMISTRY</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CY<input type=hidden name=dept id=dept value="CY"</td>
+    <td>
+     {D3}
+
+    </td>
+    <td>
+   C306</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>CY69101<input type=hidden name=subno id=subno value="CY69101"</td>
+    <td>COMPUTATIONAL CHEMISTRY LABORATORY</td>
+    <td>0-0-3</td>
+    <td>CY31010</td>
+    <td>CY41003</td>
+    <td>       </td>
+    <td>CY<input type=hidden name=dept id=dept value="CY"</td>
+    <td>
+     {N}
+
+    </td>
+    <td>
+   CIC Lab</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>ES60004<input type=hidden name=subno id=subno value="ES60004"</td>
+    <td>ENERGY MATERIALS</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>ES<input type=hidden name=dept id=dept value="ES"</td>
+    <td>
+     {U4}
+
+    </td>
+    <td>
+   NC431</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>ES61001<input type=hidden name=subno id=subno value="ES61001"</td>
+    <td>CHARACTERIZATION AND ANALYSIS OF BIOMASS AND BIOFUEL</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>ES<input type=hidden name=dept id=dept value="ES"</td>
+    <td>
+     {F4}
+
+    </td>
+    <td>
+   NC431</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>ES61007<input type=hidden name=subno id=subno value="ES61007"</td>
+    <td>RENEWABLE ENERGY SOURCES</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>ES<input type=hidden name=dept id=dept value="ES"</td>
+    <td>
+     {C4}
+
+    </td>
+    <td>
+   NC431</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>ET60007<input type=hidden name=subno id=subno value="ET60007"</td>
+    <td>INTRODUCTION TO DIGITAL SPEECH PROCESSING</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>ET<input type=hidden name=dept id=dept value="ET"</td>
+    <td>
+     {F4}
+
+    </td>
+    <td>
+   CET Studio-1</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>ET60019<input type=hidden name=subno id=subno value="ET60019"</td>
+    <td>KNOWLEDGE MODELLING AND SEMANTIC TECHNOLOGIES</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>ET<input type=hidden name=dept id=dept value="ET"</td>
+    <td>
+     {F3}
+
+    </td>
+    <td>
+   CET Studio-1</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>ET60023<input type=hidden name=subno id=subno value="ET60023"</td>
+    <td>INTRODUCTION TO COGNITIVE INFORMATION PROCESSING</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>ET<input type=hidden name=dept id=dept value="ET"</td>
+    <td>
+     {V3}
+
+    </td>
+    <td>
+   CET Studio-1</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>ET60025<input type=hidden name=subno id=subno value="ET60025"</td>
+    <td>LARGE SCALE SEARCH ENGINES</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>ET<input type=hidden name=dept id=dept value="ET"</td>
+    <td>
+     {U3}
+
+    </td>
+    <td>
+   CET Studio-1</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>IM60045<input type=hidden name=subno id=subno value="IM60045"</td>
+    <td>ENGINEERING SYSTEMS SAFETY DESIGN AND CONTROL</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>IM<input type=hidden name=dept id=dept value="IM"</td>
+    <td>
+     {E4}
+
+    </td>
+    <td>
+   ISE-E1</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>IM61003<input type=hidden name=subno id=subno value="IM61003"</td>
+    <td>HUMAN FACTORS ENGINEERING</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>IM<input type=hidden name=dept id=dept value="IM"</td>
+    <td>
+     {V4}
+
+    </td>
+    <td>
+   ISE-E1</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>IT30037<input type=hidden name=subno id=subno value="IT30037"</td>
+    <td>INTRODUCTION TO INTERNET</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>CS<input type=hidden name=dept id=dept value="CS"</td>
+    <td>
+     {G3}
+
+    </td>
+    <td>
+   NC243</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>MA20107<input type=hidden name=subno id=subno value="MA20107"</td>
+    <td>MATRIX ALGEBRA</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {A3}
+
+    </td>
+    <td>
+   NC142</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA30003<input type=hidden name=subno id=subno value="MA30003"</td>
+    <td>LINEAR ALGEBRA</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {U4}
+
+    </td>
+    <td>
+   NC242</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>MA31005<input type=hidden name=subno id=subno value="MA31005"</td>
+    <td>REAL ANALYSIS</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {E4}
+
+    </td>
+    <td>
+   NC333</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>MA31007<input type=hidden name=subno id=subno value="MA31007"</td>
+    <td>MATHEMATICAL METHODS</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {F3}
+
+    </td>
+    <td>
+   NC333</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA31009<input type=hidden name=subno id=subno value="MA31009"</td>
+    <td>COMPUTER ORGANISATION & ARCHITECTURE</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {A3}
+
+    </td>
+    <td>
+   NC342</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA31011<input type=hidden name=subno id=subno value="MA31011"</td>
+    <td>OBJECT ORIENTED SYSTEMS DESIGN</td>
+    <td>3-0-0</td>
+    <td>MA41019</td>
+    <td>CS11001</td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {C3}
+
+    </td>
+    <td>
+   NC333</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA40003<input type=hidden name=subno id=subno value="MA40003"</td>
+    <td>SYSTEMS PROGRAMMING</td>
+    <td>3-0-0</td>
+    <td>MA41019</td>
+    <td>CS11001</td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {B3}
+
+    </td>
+    <td>
+   NC244</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA40009<input type=hidden name=subno id=subno value="MA40009"</td>
+    <td>NUMBER THEORY</td>
+    <td>3-1-0</td>
+    <td>MA41002</td>
+    <td>MA31005</td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {U4}
+
+    </td>
+    <td>
+   NC333</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA40011<input type=hidden name=subno id=subno value="MA40011"</td>
+    <td>FLUID MECHANICS</td>
+    <td>3-1-0</td>
+    <td>MA20103</td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {V4}
+
+    </td>
+    <td>
+   NC231</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA41003<input type=hidden name=subno id=subno value="MA41003"</td>
+    <td>LINEAR ALGEBRA</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {U3}
+
+    </td>
+    <td>
+   NC242</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>MA41005<input type=hidden name=subno id=subno value="MA41005"</td>
+    <td>ADVANCED NUMERICAL TECHNIQUES</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {S3,B3}
+
+    </td>
+    <td>
+   NC142</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA41007<input type=hidden name=subno id=subno value="MA41007"</td>
+    <td>FUNCTIONAL ANALYSIS</td>
+    <td>3-1-0</td>
+    <td>MA31005</td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {F4}
+
+    </td>
+    <td>
+   NC231</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>MA41009<input type=hidden name=subno id=subno value="MA41009"</td>
+    <td>PROBABILITY AND STATISTICS</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {A3}
+
+    </td>
+    <td>
+   NC233</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>MA41025<input type=hidden name=subno id=subno value="MA41025"</td>
+    <td>REGRESSION AND TIME SERIES MODEL</td>
+    <td>3-1-0</td>
+    <td>MA20104</td>
+    <td>MA20106</td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {G3,S3}
+
+    </td>
+    <td>
+   NC232</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>MA41101<input type=hidden name=subno id=subno value="MA41101"</td>
+    <td>THEORY OF COMPILER DESIGN</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {E4}
+
+    </td>
+    <td>
+   NC232</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA51003<input type=hidden name=subno id=subno value="MA51003"</td>
+    <td>FLUID MECHANICS</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {V4}
+
+    </td>
+    <td>
+   NC231</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>MA51005<input type=hidden name=subno id=subno value="MA51005"</td>
+    <td>ANALYTICAL MECHANICS</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {G3}
+
+    </td>
+    <td>
+   NC142</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA51007<input type=hidden name=subno id=subno value="MA51007"</td>
+    <td>MATHEMATICAL METHODS</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {F4}
+
+    </td>
+    <td>
+   NC333</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>MA51109<input type=hidden name=subno id=subno value="MA51109"</td>
+    <td>COMPUTATIONAL STATISTICS</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {C4}
+
+    </td>
+    <td>
+   NC342</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA51111<input type=hidden name=subno id=subno value="MA51111"</td>
+    <td>NUMBER THEORY</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {U4}
+
+    </td>
+    <td>
+   NC333</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>MA51121<input type=hidden name=subno id=subno value="MA51121"</td>
+    <td>GRAPH THEORY AND ALGORITHMS</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {D4}
+
+    </td>
+    <td>
+   NR223</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA60003<input type=hidden name=subno id=subno value="MA60003"</td>
+    <td>SYSTEMS PROGRAMMING</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {B3}
+
+    </td>
+    <td>
+   NC244</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA60035<input type=hidden name=subno id=subno value="MA60035"</td>
+    <td>THEORY OF COMPILER DESIGN</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {E4}
+
+    </td>
+    <td>
+   NC232</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA60041<input type=hidden name=subno id=subno value="MA60041"</td>
+    <td>GRAPH THEORY AND ALGORITHMS</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {D4}
+
+    </td>
+    <td>
+   NR223</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA60049<input type=hidden name=subno id=subno value="MA60049"</td>
+    <td>COMPUTATIONAL STATISTICS</td>
+    <td>3-1-0</td>
+    <td>MA20104</td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {C4}
+
+    </td>
+    <td>
+   NC342</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA60059<input type=hidden name=subno id=subno value="MA60059"</td>
+    <td>ADVANCED NUMERICAL ANALYSIS</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {E4}
+
+    </td>
+    <td>
+   N322</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>MA60061<input type=hidden name=subno id=subno value="MA60061"</td>
+    <td>STATISTICAL TECHNIQUE & COMPUTER PROGRAMMING</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {D4}
+
+    </td>
+    <td>
+   NC344</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA60077<input type=hidden name=subno id=subno value="MA60077"</td>
+    <td>COMPUTER PROGRAMMING</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {D4}
+
+    </td>
+    <td>
+   NC341</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA61003<input type=hidden name=subno id=subno value="MA61003"</td>
+    <td>GRAPH THEORY AND ALGORITHMS</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {D4}
+
+    </td>
+    <td>
+   NR223</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>MA61019<input type=hidden name=subno id=subno value="MA61019"</td>
+    <td>OPTIMIZATION TECHNIQUES</td>
+    <td>3-1-0</td>
+    <td>IM21003</td>
+    <td>MA30014</td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {F4}
+
+    </td>
+    <td>
+   NC232</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA61023<input type=hidden name=subno id=subno value="MA61023"</td>
+    <td>OBJECT ORIENTED SYSTEMS DESIGN</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {C4}
+
+    </td>
+    <td>
+   NC333</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="pink" title="No Seat is Available.">
+    
+    <td>MA61061<input type=hidden name=subno id=subno value="MA61061"</td>
+    <td>OPTIMIZATION METHODS IN FINANCE</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {E3}
+
+    </td>
+    <td>
+   NC142</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MA71003<input type=hidden name=subno id=subno value="MA71003"</td>
+    <td>GALOIS THEORY</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MA<input type=hidden name=dept id=dept value="MA"</td>
+    <td>
+     {C4}
+
+    </td>
+    <td>
+   N320</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>ME60131<input type=hidden name=subno id=subno value="ME60131"</td>
+    <td>FINITE AND BOUNDARY ELEMENT METHODS IN MANUFACTURING</td>
+    <td>4-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>ME<input type=hidden name=dept id=dept value="ME"</td>
+    <td>
+     {D4}
+
+    </td>
+    <td>
+   ME304</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MI40039<input type=hidden name=subno id=subno value="MI40039"</td>
+    <td>ELEMENTS OF PETROLEUM ENGINEERING</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MI<input type=hidden name=dept id=dept value="MI"</td>
+    <td>
+     {E3}
+
+    </td>
+    <td>
+   </td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MI50009<input type=hidden name=subno id=subno value="MI50009"</td>
+    <td>OIL AND GAS WELL TESTING AND ENHANCED OIL RECOVERY</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MI<input type=hidden name=dept id=dept value="MI"</td>
+    <td>
+     {F3}
+
+    </td>
+    <td>
+   </td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MI60007<input type=hidden name=subno id=subno value="MI60007"</td>
+    <td>GEOMATICS AND REMOTE SENSING</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MI<input type=hidden name=dept id=dept value="MI"</td>
+    <td>
+     {F4}
+
+    </td>
+    <td>
+   </td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MI60016<input type=hidden name=subno id=subno value="MI60016"</td>
+    <td>SIMULATION OF MINING SYSTEMS</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MI<input type=hidden name=dept id=dept value="MI"</td>
+    <td>
+     {E3}
+
+    </td>
+    <td>
+   </td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MI60037<input type=hidden name=subno id=subno value="MI60037"</td>
+    <td>PETROLEUM AND MINERAL TRADE</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MI<input type=hidden name=dept id=dept value="MI"</td>
+    <td>
+     {A3}
+
+    </td>
+    <td>
+   </td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MI61014<input type=hidden name=subno id=subno value="MI61014"</td>
+    <td>RESOURCE EVALUATION & GEOSTATISTICS</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MI<input type=hidden name=dept id=dept value="MI"</td>
+    <td>
+     {F4}
+
+    </td>
+    <td>
+   </td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>MS31007<input type=hidden name=subno id=subno value="MS31007"</td>
+    <td>MATERIAL SCIENCE</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>MS<input type=hidden name=dept id=dept value="MS"</td>
+    <td>
+     {F3}
+
+    </td>
+    <td>
+   </td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>PE40001<input type=hidden name=subno id=subno value="PE40001"</td>
+    <td>PETROLEUM ENGINEERING FUNDAMENTALS</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>DE<input type=hidden name=dept id=dept value="DE"</td>
+    <td>
+     {S3}
+
+    </td>
+    <td>
+   </td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>RD30002<input type=hidden name=subno id=subno value="RD30002"</td>
+    <td>TRANSFER AND MANAGEMENT OF RURAL TECHNOLOGY</td>
+    <td>3-1-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>RD<input type=hidden name=dept id=dept value="RD"</td>
+    <td>
+     {E4}
+
+    </td>
+    <td>
+   NR323</td>
+   </tr>
+    <input type=hidden name="check" value="U">
+     <tr bgcolor="white">
+    
+    <td>RT30019<input type=hidden name=subno id=subno value="RT30019"</td>
+    <td>SCI AND TECH. RUBBER & RUBBER LIKE MATERIALS</td>
+    <td>3-0-0</td>
+    <td>       </td>
+    <td>       </td>
+    <td>       </td>
+    <td>RT<input type=hidden name=dept id=dept value="RT"</td>
+    <td>
+     {U3}
+
+    </td>
+    <td>
+   </td>
+   </tr>
+    <input type=hidden name="check" value="U"></table>
+
+          
+
+</form>
+         <div id="get_detail"  style="border:2px black solid;background-color:#FBFBEF;width:680px;display:none;position:absolute;overflow:auto"></div>
+</body>
+</html>
