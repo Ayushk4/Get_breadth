@@ -1,6 +1,7 @@
 import urllib2
+from extract_coursedata import html2json
 
-cookie = 'A69E33F0E8877955C1BFF8A9B4396F9B.worker3'
+cookie = 'E5623814DD36ACBD35E7C7B51F99668A.worker2'
 
 def getHTMLpage():
     opener = urllib2.build_opener()
@@ -9,5 +10,7 @@ def getHTMLpage():
     file = open('html_page.html', 'w')
     file.write(f.read())
     file.close()
+    html2json()
+
     
 getHTMLpage()
