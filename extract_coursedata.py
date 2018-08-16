@@ -65,7 +65,7 @@ def html2json():
                             schedule[day][hour].append(room)
 
     
-    print(len(dataBreadth) + " breadth courses scraped!")
+    print(str(len(dataBreadth)) + " breadth courses scraped!")
     with open('breadth_schedule.json', 'w+') as fout:
         json.dump(schedule, fout)
     json_file_main = open("breadth_course.json", "w+")
