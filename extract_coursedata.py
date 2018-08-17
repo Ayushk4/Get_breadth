@@ -36,11 +36,38 @@ def html2json():
             #    print(rows[j])
             #    print(keys[j-1])
             #   j = j+1
-            print(dataBreadth)
+            # Uncomment below to view the dictionary on console
+            # print(dataBreadth)
         i = i+1
 
+
+    # Create schedule list for each day, each hour
+    with open('slots.json') as fin:
+        slots_data = json.load(fin)
+    days = 5
+    hours = 9
+    schedule = [[[] for _ in range(hours)] for __ in range(days)]
+    for data in dataBreadth.keys():
+        for slots in [dataBreadth[data]['Slot']]:
+            slots = slots[1:len(slots)-1]
+            slots.replace(" ","")
+            if len(slots)>2:
+                slots = [x for x in slots.split(',')]
+            else:
+                slots = [slots]
+            for slot in slots:
+                if len(slot)>1:
+                    for week_hour in slots_data[slot]:
+                        hour = int(week_hour)%10
+                        day = int(int(week_hour)//10)
+                        room = dataBreadth[data]['Room']
+                        if any(place in room for place in ['NC', 'NR']):
+                            schedule[day][hour].append(room)
+
     
-    print(len(dataBreadth))
+    print(str(len(dataBreadth)) + " breadth courses scraped!")
+    with open('breadth_schedule.json', 'w+') as fout:
+        json.dump(schedule, fout)
     json_file_main = open("breadth_course.json", "w+")
     json_file_main.write(json.dumps(dataBreadth))
     json_file_main.close()
